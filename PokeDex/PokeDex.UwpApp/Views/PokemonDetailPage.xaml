@@ -1,0 +1,111 @@
+﻿<Page
+    x:Class="PokeDex.UwpApp.Views.PokemonDetailPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:PokeDex.UwpApp.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:AppStudio.Uwp.Controls"
+    mc:Ignorable="d"
+    DataContext="{Binding PokemonDetailViewModel, Source={StaticResource BootStrapper}}">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <ProgressRing IsActive="{Binding IsLoading}" HorizontalAlignment="Center" VerticalAlignment="Center"></ProgressRing>
+        <StackPanel Visibility="{Binding IsLoading, Converter={StaticResource BoolToVisibilityConverter}, ConverterParameter=reverse}">
+            <Border HorizontalAlignment="Stretch" Height="48" Background="DarkRed">
+                <StackPanel Orientation="Horizontal" Margin="0,5">
+                    <Button Content="&#xE72B;" FontWeight="SemiBold" Foreground="White" FontFamily="Segoe MDL2 Assets" FontSize="16" Background="Transparent" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Width="48" Height="32" Click="BackButton_OnClick" />
+                    <TextBlock Text="{Binding CurrentPokemon.Name}" FontWeight="SemiBold" Foreground="White" FontSize="16" TextAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,4" />
+                </StackPanel>
+            </Border>
+            <FlipView Height="148" HorizontalAlignment="Stretch" Background="Transparent">
+                <FlipViewItem Visibility="{Binding CurrentPokemon.Sprites.FrontMale, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter=reverse}">
+                    <StackPanel>
+                        <controls:ImageEx Source="{Binding CurrentPokemon.Sprites.FrontMale}" Stretch="Uniform" Height="124" />
+                        <TextBlock Text="Front" FontSize="12" FontWeight="SemiLight" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </StackPanel>
+                </FlipViewItem>
+                <FlipViewItem Visibility="{Binding CurrentPokemon.Sprites.BackMale, Converter={StaticResource NullToVisibilityConverter}, ConverterParameter=reverse}">
+                    <StackPanel>
+                        <controls:ImageEx Source="{Binding CurrentPokemon.Sprites.BackMale}" Stretch="Uniform" Height="124" />
+                        <TextBlock Text="Back" FontSize="12" FontWeight="SemiLight" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                    </StackPanel>
+                </FlipViewItem>
+            </FlipView>
+            <Rectangle Height="1" Fill="DarkGray" HorizontalAlignment="Stretch" Margin="2,5"></Rectangle>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <TextBlock Text="Types" FontWeight="SemiBold" />
+                <ItemsControl Grid.Row="1" ItemsSource="{Binding CurrentPokemon.Types}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border CornerRadius="6" Padding="8" Background="{Binding Type.Name, Converter={StaticResource TypeToBrushConverter}}" Margin="5,2">
+                                <TextBlock Text="{Binding Type.Name}" Foreground="White" FontWeight="SemiBold" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapGrid Orientation="Horizontal"  />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </Grid>
+            <Rectangle Height="1" Fill="DarkGray" HorizontalAlignment="Stretch" Margin="2,5"></Rectangle>
+            <Grid Margin="0,0,0,5">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="176" />
+                    <ColumnDefinition />
+                </Grid.ColumnDefinitions>
+                <TextBlock Text="Species" Grid.Row="0" Grid.Column="0" FontWeight="SemiBold" />
+                <TextBlock Text="Height" Grid.Row="1" Grid.Column="0" FontWeight="SemiBold" />
+                <TextBlock Text="Weight" Grid.Row="2" Grid.Column="0" FontWeight="SemiBold" />
+                <TextBlock Text="Ablitilies" Grid.Row="3" Grid.Column="0" FontWeight="SemiBold" />
+                <TextBlock Text="{Binding CurrentPokemon.Species.Name}" Grid.Row="0" Grid.Column="1" />
+                <TextBlock Text="{Binding CurrentPokemon.Height}" Grid.Row="1" Grid.Column="1" />
+                <TextBlock Text="{Binding CurrentPokemon.Mass}" Grid.Row="2" Grid.Column="1" />
+                <ItemsControl ItemsSource="{Binding CurrentPokemon.Abilities}" Grid.Row="3" Grid.Column="1">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Ability.Name}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapGrid Orientation="Horizontal"  />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                </ItemsControl>
+            </Grid>
+            <TextBlock Text="Stats" FontWeight="SemiBold" />
+            <Rectangle Height="1" Fill="DarkGray" HorizontalAlignment="Stretch" Margin="2,5"></Rectangle>
+            <ItemsControl ItemsSource="{Binding BaseStats}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="176" />
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0" Text="{Binding Key.Stat.Name}" />
+                            <ProgressBar Grid.Column="2" Value="{Binding Key.BaseValue}" Maximum="200"></ProgressBar>
+                        </Grid>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+           
+        </StackPanel>
+    </Grid>
+</Page>

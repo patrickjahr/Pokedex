@@ -1,0 +1,41 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:PokeDex.UwpApp.Styles">
+
+    <Color x:Key="GrassTypeColor">#005500</Color>
+    <Color x:Key="WaterTypeColor">#0055ff</Color>
+    <Color x:Key="PosionTypeColor">#005500</Color>
+    <Color x:Key="FlyingTypeColor">#005500</Color>
+    <Color x:Key="FireTypeColor">#660000</Color>
+    <Color x:Key="BugTypeColor">#005500</Color>
+    <Color x:Key="NormalTypeColor">#005500</Color>
+    <Color x:Key="ElectricTypeColor">#005500</Color>
+    <Color x:Key="GroundTypeColor">#005500</Color>
+    <Color x:Key="FairyTypeColor">#005500</Color>
+    <Color x:Key="FightingTypeColor">#005500</Color>
+    <Color x:Key="PsychicTypeColor">#005500</Color>
+    <Color x:Key="RockTypeColor">#005500</Color>
+    <Color x:Key="SteelTypeColor">#005500</Color>
+    <Color x:Key="IceTypeColor">#005500</Color>
+    <Color x:Key="GhostTypeColor">#005500</Color>
+    <Color x:Key="DragonTypeColor">#005500</Color>
+    
+    <SolidColorBrush x:Key="GrassTypeBrush" Color="{StaticResource GrassTypeColor}" />
+    <SolidColorBrush x:Key="WaterTypeBrush" Color="{StaticResource WaterTypeColor}" />
+    <SolidColorBrush x:Key="PosionTypeBrush" Color="{StaticResource PosionTypeColor}" />
+    <SolidColorBrush x:Key="FlyingTypeBrush" Color="{StaticResource FlyingTypeColor}" />
+    <SolidColorBrush x:Key="FireTypeBrush" Color="{StaticResource FireTypeColor}" />
+    <SolidColorBrush x:Key="BugTypeBrush" Color="{StaticResource BugTypeColor}" />
+    <SolidColorBrush x:Key="NormalTypeBrush" Color="{StaticResource NormalTypeColor}" />
+    <SolidColorBrush x:Key="ElectricTypeBrush" Color="{StaticResource ElectricTypeColor}" />
+    <SolidColorBrush x:Key="GroundTypeBrush" Color="{StaticResource GroundTypeColor}" />
+    <SolidColorBrush x:Key="FairyTypeBrush" Color="{StaticResource FairyTypeColor}" />
+    <SolidColorBrush x:Key="FightingTypeBrush" Color="{StaticResource FightingTypeColor}" />
+    <SolidColorBrush x:Key="PsychicTypeBrush" Color="{StaticResource PsychicTypeColor}" />
+    <SolidColorBrush x:Key="RockTypeBrush" Color="{StaticResource RockTypeColor}" />
+    <SolidColorBrush x:Key="SteelTypeBrush" Color="{StaticResource SteelTypeColor}" />
+    <SolidColorBrush x:Key="IceTypeBrush" Color="{StaticResource IceTypeColor}" />
+    <SolidColorBrush x:Key="GhostTypeBrush" Color="{StaticResource GhostTypeColor}" />
+    <SolidColorBrush x:Key="DragonTypeBrush" Color="{StaticResource DragonTypeColor}" />
+</ResourceDictionary>

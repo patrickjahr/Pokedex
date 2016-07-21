@@ -1,0 +1,80 @@
+﻿<Page
+    x:Class="PokeDex.UwpApp.Views.PokemonOverviewPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:PokeDex.UwpApp.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="using:AppStudio.Uwp.Controls"
+    mc:Ignorable="d" 
+    Loaded="PokemonOverviewControl_OnLoaded"
+    DataContext="{Binding PokemonOverviewViewModel, Source={StaticResource BootStrapper}}">
+
+    <Page.Resources>
+        <Style TargetType="ListViewItem">
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+        </Style>
+    </Page.Resources>
+    <Grid>
+        <ProgressRing IsActive="{Binding IsLoading}" Width="42" Height="42" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        <Grid>
+            <Grid.Background>
+                <ImageBrush ImageSource="../Assets/background.jpg" Stretch="UniformToFill" />
+            </Grid.Background>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Border HorizontalAlignment="Stretch" Height="48" Background="DarkRed">
+                <StackPanel Orientation="Horizontal" Margin="0,5">
+                    <Button Content="&#xE72B;" FontWeight="SemiBold" Foreground="White" FontFamily="Segoe MDL2 Assets" FontSize="16" Background="Transparent" VerticalAlignment="Stretch" VerticalContentAlignment="Stretch" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" Width="48" Height="32" Click="BackButton_OnClick" />
+                    <TextBlock Text="Pokemon" FontWeight="SemiBold" Foreground="White" FontSize="16" TextAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,4" />
+                </StackPanel>
+            </Border>
+            <SearchBox Grid.Row="1" PlaceholderText="Search for Pokemon" QueryText="{Binding SearchQuery, Mode=TwoWay}" QueryChanged="SearchBox_OnQueryChanged" Margin="2" />
+            <ListView Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" ItemsSource="{Binding PokemonCollection}" 
+                  ScrollViewer.HorizontalScrollMode="Disabled"
+                  ScrollViewer.VerticalScrollMode="Auto"
+                  SelectionMode="None" IsItemClickEnabled="True"
+                      ItemClick="PokemonItem_OnClick">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Border BorderBrush="WhiteSmoke" BorderThickness="0,0,0,2">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <controls:ImageEx Grid.Row="0" Grid.Column="0" Grid.RowSpan="2" Stretch="UniformToFill" Source="{Binding ImageUrl}" Width="48" Height="48" Margin="0,0,10,0" AnimateGif="True" />
+                                <TextBlock Grid.Row="0" Grid.Column="1" Foreground="WhiteSmoke" FontWeight=" SemiBold" FontSize="16" Text="{Binding Name}" TextTrimming="CharacterEllipsis" />
+                                <TextBlock Grid.Row="1" Grid.Column="1" Foreground="WhiteSmoke" FontWeight=" SemiLight" FontSize="12">
+                                        <Run Text="#" /><Run Text="{Binding Id}" />
+                                </TextBlock>
+                                <ItemsControl Grid.Row="1" Grid.Column="2" ItemsSource="{Binding Types}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Border CornerRadius="6" Padding="5" Background="{Binding Converter={StaticResource TypeToBrushConverter}}" Margin="5,2">
+                                                <TextBlock Text="{Binding}" Foreground="White" FontWeight="SemiBold" FontSize="12" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                                            </Border>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate>
+                                            <WrapGrid Orientation="Horizontal"  />
+                                        </ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                </ItemsControl>
+                                </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+    </Grid>
+</Page>
